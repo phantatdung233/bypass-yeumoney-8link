@@ -2,10 +2,47 @@
 // @name         Bypass 8link.io
 // @namespace    http://tampermonkey.net/
 // @version      1.0
-// @description  Automatically Bypass 8link
+// @description  Automatically Bypass 8link.io
 // @author       xGreen
 // @match        https://8link.io/*
 // @grant        none
 // ==/UserScript==
 
-(function(_0x13833e,_0x1aa0e1){const _0x26c400=_0x381e,_0x28063b=_0x13833e();while(!![]){try{const _0x5a3bbb=-parseInt(_0x26c400(0x17c))/0x1+parseInt(_0x26c400(0x179))/0x2*(parseInt(_0x26c400(0x189))/0x3)+parseInt(_0x26c400(0x17b))/0x4*(parseInt(_0x26c400(0x180))/0x5)+-parseInt(_0x26c400(0x18b))/0x6*(-parseInt(_0x26c400(0x17a))/0x7)+parseInt(_0x26c400(0x17d))/0x8*(-parseInt(_0x26c400(0x18c))/0x9)+-parseInt(_0x26c400(0x190))/0xa+-parseInt(_0x26c400(0x188))/0xb;if(_0x5a3bbb===_0x1aa0e1)break;else _0x28063b['push'](_0x28063b['shift']());}catch(_0x300209){_0x28063b['push'](_0x28063b['shift']());}}}(_0x23e7,0xb4508),(function(){'use strict';const _0x1f56b=_0x381e;window[_0x1f56b(0x192)](_0x1f56b(0x184),function(){const _0x47c7f0=_0x1f56b;console[_0x47c7f0(0x17f)](_0x47c7f0(0x178)),fetch(_0x47c7f0(0x182),{'method':_0x47c7f0(0x18e),'headers':{'Content-Type':'application/json'},'body':JSON[_0x47c7f0(0x186)]({'fingerprint':'e59f97','has_clicked_link':!![]})})[_0x47c7f0(0x18f)](_0x56fd56=>{const _0x47a152=_0x47c7f0;if(!_0x56fd56['ok'])throw new Error(_0x47a152(0x193));return _0x56fd56[_0x47a152(0x177)]();})[_0x47c7f0(0x18f)](_0x1f3e46=>{const _0x1c6f38=_0x47c7f0,_0x9442cd=_0x1f3e46[_0x1c6f38(0x195)],_0x5d8878=document[_0x1c6f38(0x181)]('body\x20>\x20main\x20>\x20div.sl-challenge__code.sl-challenge__border.position-relative\x20>\x20form\x20>\x20div\x20>\x20input[type=text]');if(_0x5d8878){_0x5d8878[_0x1c6f38(0x18d)]=_0x9442cd;const _0x1a9bc5=new Event(_0x1c6f38(0x18a),{'bubbles':!![]});_0x5d8878[_0x1c6f38(0x17e)](_0x1a9bc5);}const _0x2bee58=document[_0x1c6f38(0x181)](_0x1c6f38(0x187));_0x2bee58&&_0x2bee58[_0x1c6f38(0x191)]();})[_0x47c7f0(0x183)](_0x117841=>{const _0x33bb7f=_0x47c7f0;console[_0x33bb7f(0x194)](_0x33bb7f(0x185),_0x117841);});});}()));function _0x381e(_0x258d27,_0x2d580f){const _0x23e768=_0x23e7();return _0x381e=function(_0x381ec5,_0x57fe31){_0x381ec5=_0x381ec5-0x177;let _0x32bbae=_0x23e768[_0x381ec5];return _0x32bbae;},_0x381e(_0x258d27,_0x2d580f);}function _0x23e7(){const _0x587982=['2070vnmaSM','querySelector','https://8link.io/api/get-code','catch','load','Fetch\x20error:','stringify','body\x20>\x20main\x20>\x20div.sl-challenge__code.sl-challenge__border.position-relative\x20>\x20form\x20>\x20div\x20>\x20button','5242677HBhlQl','3zRuUdr','input','165174jSrKGh','6167565lIDCSP','value','POST','then','895930lWANYk','click','addEventListener','Network\x20response\x20was\x20not\x20ok','error','code','json','Page\x20fully\x20loaded,\x20starting\x20the\x20script.','418078jQKoxI','287GhpNVu','13904hBoyeS','786739rYIMmQ','8zarlvE','dispatchEvent','log'];_0x23e7=function(){return _0x587982;};return _0x23e7();}
+(function() {
+    'use strict';
+    window.addEventListener('load', function() {
+        console.log('Page fully loaded, starting the script.');
+        fetch('https://8link.io/api/get-code', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                fingerprint: 'e59f97',
+                has_clicked_link: true
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const code = data['code'];
+            const inputField = document.querySelector('body > main > div.sl-challenge__code.sl-challenge__border.position-relative > form > div > input[type=text]');
+            if (inputField) {
+                inputField.value = code;
+                const event = new Event('input', { bubbles: true });
+                inputField.dispatchEvent(event);
+            }
+            const submitButton = document.querySelector('body > main > div.sl-challenge__code.sl-challenge__border.position-relative > form > div > button');
+            if (submitButton) {
+                submitButton.click();
+            }
+        })
+        .catch(error => {
+            console.error('Fetch error:', error);
+        });
+    });
+})();
